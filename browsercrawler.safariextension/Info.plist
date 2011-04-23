@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Sam Pullara</string>
+	<key>CFBundleDisplayName</key>
+	<string>Browser Crawler</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.browsercrawl</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict>
+		<key>Context Menu Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>crawl</string>
+				<key>Identifier</key>
+				<string>crawl</string>
+				<key>Title</key>
+				<string>Start crawl</string>
+			</dict>
+		</array>
+		<key>Database Quota</key>
+		<real>1048576</real>
+		<key>Global Page</key>
+		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>crawl</string>
+				<key>Identifier</key>
+				<string>crawl</string>
+				<key>Image</key>
+				<string>browsercrawl.png</string>
+				<key>Label</key>
+				<string>Crawl</string>
+				<key>Palette Label</key>
+				<string>Crawl</string>
+				<key>Tool Tip</key>
+				<string>Start crawl with current page</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>progress.js</string>
+			</array>
+		</dict>
+	</dict>
+	<key>Description</key>
+	<string>Crawls the current page and its links</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Include Secure Pages</key>
+			<true/>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://browsercrawl.com</string>
+</dict>
+</plist>
