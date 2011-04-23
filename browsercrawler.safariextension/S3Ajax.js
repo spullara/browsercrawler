@@ -20,7 +20,7 @@ S3Ajax = {
     DEFAULT_ACL: 'public-read',
     
     // Default content-type to use in uploading keys.
-    DEFAULT_CONTENT_TYPE: 'text/plain; charset=UTF-8',
+    DEFAULT_CONTENT_TYPE: 'text/html; charset=UTF-8',
 
     /**
         DANGER WILL ROBINSON - Do NOT fill in your KEY_ID and SECRET_KEY 
