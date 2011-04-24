@@ -1,16 +1,18 @@
 // Install our event listeners
 function handleCrawl(event) {
+  var debug = false;
   var ses = safari.extension.secureSettings;
   if (event.command == 'crawl') {
     var bw = event.target.browserWindow;
     bw = bw ? bw : this.activeBrowserWindow;
     if (bw) {
-      if (ses.accesskey == null || ses.secretkey == null || ses.bucket == null) {
+      if (!debug && (ses.accesskey == null || ses.secretkey == null || ses.bucket == null)) {
         alert("You must set your access key, secret key and bucket name in settings to crawl.");
       } else {
         S3Ajax.KEY_ID = ses.accesskey;
         S3Ajax.SECRET_KEY = ses.secretkey;
         var seed = bw.activeTab.url;
+        var domain = seed.match(/^(https?:\/\/[^/]+)/)[1];
         var lastIndexOf = seed.lastIndexOf("/");
         var root = lastIndexOf == -1 ? seed : seed.substring(0, lastIndexOf + 1);
         var queue = [seed];
@@ -28,16 +30,40 @@ function handleCrawl(event) {
                 if (name.match(/\/$/)) {
                   name += "index.html";
                 }
-                S3Ajax.put(ses.bucket, name, data);
+                name = name.replace("[?]", "_").replace("[&]", "_");
+                if (!debug) {
+                  S3Ajax.put(ses.bucket, name, data);
+                }
                 $(data).find("a").each(function() {
                   var href = $(this).attr('href');
-                  if (href && href.match(root)) {
+                  if (href) {
                     var anchorPosition = href.indexOf("#");
                     href = anchorPosition == -1 ? href : href.substring(0, anchorPosition);
-                    queue.push(href);
+                    var query = href.match(/([^?]*)(\?.*)/);
+                    if (query) {
+                      href = query[1];
+                      query = query[2];
+                    }
+                    if (href.match(/^\//)) {
+                      href = domain + href;
+                    } else if (!href.match(/^[a-z]+:/)) {
+                      var lastIndexOf = url.lastIndexOf("/");
+                      var urlroot = lastIndexOf == -1 ? url : url.substring(0, lastIndexOf + 1);
+                      href = urlroot + href;
+                    }
+                    if (query) {
+                      href = href + query;
+                    }
+                    if (href.match(root)) {
+                      if (!crawled[href]) {
+                        queue.push(href);
+                      }
+                    }
                   }
                 });
-                next();
+                if (!debug) {
+                  next();
+                }
               }).error(function() {
                 next();
               });
