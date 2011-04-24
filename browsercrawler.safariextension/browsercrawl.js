@@ -28,7 +28,6 @@ function handleCrawl(event) {
                 if (name.match(/\/$/)) {
                   name += "index.html";
                 }
-                safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("title", "Uploading: " + name);
                 S3Ajax.put(ses.bucket, name, data);
                 $(data).find("a").each(function() {
                   var href = $(this).attr('href');
