@@ -10,7 +10,6 @@ function handleCrawl(event) {
       } else {
         S3Ajax.KEY_ID = ses.accesskey;
         S3Ajax.SECRET_KEY = ses.secretkey;
-        console.log("Crawling");
         var seed = bw.activeTab.url;
         var lastIndexOf = seed.lastIndexOf("/");
         var root = lastIndexOf == -1 ? seed : seed.substring(0, lastIndexOf + 1);
