@@ -40,6 +40,8 @@ function handleCrawl(event) {
                   }
                 });
                 next();
+              }).error(function() {
+                next();
               });
             } else {
               next();
