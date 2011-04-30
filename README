@@ -6,8 +6,8 @@ website and upload them directly to your S3 bucket. There is no limit to the dep
 WHY? 
 
 Sometimes you want a permanent copy of something you find on the web. For example, I used it to grab a copy of the
-Mozilla Javascript documentation to have offline. Other times you might suspect the page might be taken down, this will
-grab a permanent copy of it.
+Mozilla Javascript documentation to have offline. Use it to backup your own data on sites that require authentication
+but don't have a great data portability solution.
 
 HOW
 
