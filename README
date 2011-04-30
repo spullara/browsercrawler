@@ -1,0 +1,9 @@
+The BrowserCrawler plugin for Safari will pull all the linked pages under a particular root on a website and upload them directly to your S3 bucket.
+
+1. Install the plugin either by downloading it or building it in Safari with the built-in Extension Builder
+2. Configure your AWS S3 settings in the preferences
+3. When you are on a page where you want to start the crawl either click the spider button or right click and start crawl.
+
+It will continue the crawl as long as the page is open, updating the title of the page with the current URL it is crawling. It will only crawl pages at the same level or below as the seed page. 
+
+WARNING: It will crawl the site as YOU and so will capture any data that you would normally have access to using your cookies. It will not run javascript but it does download the images, this can use a tremendous amount of bandwidth if you happen to click this on a big website.
