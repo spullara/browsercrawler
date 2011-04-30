@@ -1,5 +1,15 @@
+WHAT
+
 The BrowserCrawler plugin for Safari will pull all the linked pages under a particular root on a
-website and upload them directly to your S3 bucket.
+website and upload them directly to your S3 bucket. There is no limit to the depth it will crawl.
+
+WHY? 
+
+Sometimes you want a permanent copy of something you find on the web. For example, I used it to grab a copy of the
+Mozilla Javascript documentation to have offline. Other times you might suspect the page might be taken down, this will
+grab a permanent copy of it.
+
+HOW
 
 1. Install the plugin either by downloading it or building it in Safari with the built-in Extension Builder
 2. Configure your AWS S3 settings in the preferences
@@ -10,6 +20,14 @@ It will continue the crawl as long as the page is open, updating a progress box 
 it is crawling. It will only crawl pages at the same level or below as the seed page. You can cancel at any time
 by clicking "Cancel".
 
-WARNING: It will crawl the site as YOU and so will capture any data that you would normally have access to using
-your cookies. It will not run javascript but it does download the images, this can use a tremendous amount of
-bandwidth if you happen to crawl a big website.
+WARNING
+
+BrowserCrawler will crawl the site as YOU and so will capture any data that you would normally have access to using
+your cookies. It will not run javascript but it does download the images (though doesn't upload them), this can use
+a tremendous amount of bandwidth if you happen to crawl a big website. Also, be careful with small sites, they might
+not have the capacity to endure a full-speed crawl, even from a single machine.
+
+CREDITS
+
+Thanks to l.m.orchard at pobox.com for the S3 library and Paul Johnston, Greg Holt, Andrew Kepert, Ydnar, and Lostinet
+for the SHA1 implementation that it uses. JQuery 1.5.2 isn't included but it is used by the plugin to do the actual crawl.
