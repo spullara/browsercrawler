@@ -1,23 +1,23 @@
 /*
-   Copyright 2011 Sam Pullara
+ Copyright 2011 Sam Pullara
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  */
 
 // Install our event listeners
 var cancel = false;
 function handleCrawl(event) {
-  var debug = false;
+  var debug = true;
   var ses = safari.extension.secureSettings;
   if (event.command == 'crawl') {
     safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("start");
@@ -43,7 +43,7 @@ function handleCrawl(event) {
             if (!crawled[url]) {
               crawled[url] = true;
               safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("title", "Crawling: " + url);
-              $.get(url, function(data) {
+              $.ajax({url:url, success:function(data) {
                 var name = url.match(/https?:\/\/(.+)/)[1];
                 if (name.match(/\/$/)) {
                   name += "index.html";
@@ -80,8 +80,11 @@ function handleCrawl(event) {
                   }
                 });
                 next();
-              }).error(function() {
+              }, beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-User-Agent", "BrowserCrawler");
+              }, error: function() {
                 next();
+              }
               });
             } else {
               next();
@@ -90,6 +93,7 @@ function handleCrawl(event) {
             safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("title", "Done Crawling");
           }
         }
+
         next();
       }
     }
